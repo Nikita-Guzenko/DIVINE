@@ -10,8 +10,8 @@ from typing import Optional, List, Dict
 
 # CDLjobs credentials
 CDLJOBS_URL = "https://www.cdljobs.com/administrator"
-CDLJOBS_EMAIL = "nikita.guzenko@divinetrans.com"
-CDLJOBS_PASSWORD = "9kT@6z#F"
+CDLJOBS_EMAIL = os.environ.get("CDLJOBS_EMAIL", "nikita.guzenko@divinetrans.com")
+CDLJOBS_PASSWORD = os.environ.get("CDLJOBS_PASSWORD", "9kT@6z#F")
 CARRIER_ADMIN_ID = "1075"
 
 # Experience dropdown value mapping

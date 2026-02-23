@@ -3,12 +3,14 @@ Configuration for Divine Recruiting Automation
 Fill in your credentials after receiving them from Divine
 """
 
+import os
+
 # =============================================================================
 # EMAIL CONFIGURATION (IMAP/SMTP)
 # =============================================================================
 # Gmail for notifications (will switch to Divine email later)
-EMAIL_ADDRESS = "nguzen@gmail.com"
-EMAIL_PASSWORD = "jvoxlvfyambswels"  # App password
+EMAIL_ADDRESS = os.environ.get("GMAIL_ADDRESS", "nguzen@gmail.com")
+EMAIL_PASSWORD = os.environ.get("GMAIL_PASSWORD", "jvoxlvfyambswels")  # App password
 IMAP_SERVER = "imap.gmail.com"
 IMAP_PORT = 993
 SMTP_SERVER = "smtp.gmail.com"
@@ -18,8 +20,8 @@ SMTP_PORT = 587
 # CAREERPLUG CREDENTIALS
 # =============================================================================
 CAREERPLUG_URL = "https://app.careerplug.com"
-CAREERPLUG_EMAIL = "nguzen@gmail.com"
-CAREERPLUG_PASSWORD = "VhruYGb8a6ce#Gx"
+CAREERPLUG_EMAIL = os.environ.get("CAREERPLUG_EMAIL", "nguzen@gmail.com")
+CAREERPLUG_PASSWORD = os.environ.get("CAREERPLUG_PASSWORD", "VhruYGb8a6ce#Gx")
 
 # =============================================================================
 # DIVINE ENTERPRISES INFO
@@ -47,8 +49,6 @@ DIVINE_SMTP_SERVER = ""  # e.g., mail.divinetrans.com
 # =============================================================================
 # PATHS
 # =============================================================================
-import os
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
