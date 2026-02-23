@@ -28,6 +28,8 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
+| #19662 | 10:06 AM | 🟣 | Automated candidate scraping pipeline with GitHub Actions | ~396 |
+| #19658 | 10:05 AM | ✅ | Credential configuration now supports environment variables | ~306 |
 | #19646 | 9:57 AM | 🔵 | Telegram bot provides real-time candidate notifications and feedback collection workflow | ~610 |
 | #19644 | " | 🔵 | CDLjobs.com scraper extracts comprehensive candidate profiles from admin panel | ~621 |
 | #19639 | 9:55 AM | 🔵 | Email automation system handles templated outreach and response analysis | ~524 |

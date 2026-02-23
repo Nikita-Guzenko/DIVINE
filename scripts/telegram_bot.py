@@ -27,7 +27,7 @@ from supabase import create_client
 # ─── Config ──────────────────────────────────────────────────────────────────
 
 TELEGRAM_BOT_TOKEN = "8003820485:AAF7Oaj2tr1tm0s_uHbzDRuLJhLpvrV1bBA"
-SERGEY_CHAT_ID = -1003635186356
+SERGEY_CHAT_ID = -5036058686
 
 SUPABASE_URL = "https://psrsosfjteeovtmszwgu.supabase.co"
 SUPABASE_KEY = (

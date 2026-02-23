@@ -35,7 +35,7 @@ SUPABASE_URL = os.environ.get(
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "")
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
-TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "-1003635186356")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "-5036058686")
 
 
 # ─── Helpers ─────────────────────────────────────────────────────────────────
