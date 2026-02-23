@@ -65,22 +65,24 @@ def format_candidate_message(c: dict) -> str:
     phone = c.get("phone", "—")
     location = c.get("location", "—")
     experience = c.get("experience", "—")
-    source = c.get("source", "—")
-    team = "Yes" if c.get("wants_team") else "No"
+    license_types = ", ".join(c.get("license_types") or []) or "—"
     endorsements = ", ".join(c.get("endorsements") or []) or "None"
+    trailer = ", ".join(c.get("trailer_experience") or []) or "—"
+    violations = c.get("moving_violations", "—")
+    accidents = c.get("preventable_accidents", "—")
+    dui = c.get("dwi_dui", "—")
 
     return (
-        f"🚛 <b>New Qualified Candidate</b>\n"
-        f"━━━━━━━━━━━━━━━━━━━━━\n"
+        f"<a href='tg://user?id=1496678108'>Sergey</a>\n"
+        f"🚛 <b>New Candidate</b>\n\n"
         f"<b>Name:</b> {name}\n"
         f"<b>Phone:</b> {phone}\n"
         f"<b>Location:</b> {location}\n"
         f"<b>Experience:</b> {experience}\n"
-        f"<b>Wants Team:</b> {team}\n"
+        f"<b>License:</b> {license_types}\n"
         f"<b>Endorsements:</b> {endorsements}\n"
-        f"<b>Source:</b> {source}\n"
-        f"━━━━━━━━━━━━━━━━━━━━━\n"
-        f"Please review and provide your feedback:"
+        f"<b>Trailer:</b> {trailer}\n"
+        f"<b>Violations:</b> {violations} | <b>Accidents:</b> {accidents} | <b>DUI:</b> {dui}"
     )
 
 
