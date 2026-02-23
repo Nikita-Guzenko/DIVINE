@@ -1,0 +1,37 @@
+# Data
+data/
+*.db
+*.json
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Secrets
+.env
+google_credentials.json
+
+# OS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Dashboard (separate git repo)
+dashboard/
+
+# 3D models (large files)
+3d_models/
+
+# Logs
+*.log
+*_log.txt
+*_output.txt
+email_log.txt
+sms_log.txt
+email_output.txt
+sms_output.txt
+unreal_mcp.log
