@@ -26,11 +26,16 @@ from supabase import create_client
 
 # ─── Config ──────────────────────────────────────────────────────────────────
 
-TELEGRAM_BOT_TOKEN = "8003820485:AAF7Oaj2tr1tm0s_uHbzDRuLJhLpvrV1bBA"
-SERGEY_CHAT_ID = -5036058686
+TELEGRAM_BOT_TOKEN = os.environ.get(
+    "TELEGRAM_BOT_TOKEN", "8003820485:AAF7Oaj2tr1tm0s_uHbzDRuLJhLpvrV1bBA"
+)
+SERGEY_CHAT_ID = int(os.environ.get("TELEGRAM_CHAT_ID", "-5036058686"))
 
-SUPABASE_URL = "https://psrsosfjteeovtmszwgu.supabase.co"
-SUPABASE_KEY = (
+SUPABASE_URL = os.environ.get(
+    "SUPABASE_URL", "https://psrsosfjteeovtmszwgu.supabase.co"
+)
+SUPABASE_KEY = os.environ.get(
+    "SUPABASE_KEY",
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9."
     "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzcnNvc2ZqdGVlb3Z0bXN6d2d1Iiwi"
     "cm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MTUzMjYwMCwiZXhwIjoyMDg3"
