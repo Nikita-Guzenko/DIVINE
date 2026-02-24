@@ -211,13 +211,11 @@ async def handle_callback(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 
 
 async def handle_text(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
-    """Handle free-text messages (comments from Sergey)."""
+    """Handle free-text messages — only process if we're waiting for a comment."""
     chat_id = update.message.chat_id
+
+    # If we're not waiting for a comment, silently ignore the message
     if chat_id not in pending_feedback:
-        await update.message.reply_text(
-            "I'm not expecting a comment right now. "
-            "Use the buttons on a candidate notification to provide feedback."
-        )
         return
 
     candidate_id = pending_feedback.pop(chat_id)
@@ -289,7 +287,7 @@ def main():
     # Inline button callbacks
     app.add_handler(CallbackQueryHandler(handle_callback))
 
-    # Free text (comments)
+    # Free text (comments) — silently ignores messages when not expecting feedback
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
 
     # Periodic job: check for new qualified candidates every N seconds
