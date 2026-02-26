@@ -36,6 +36,7 @@ SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "")
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "-5036058686")
+TELEGRAM_PERSONAL_ID = os.environ.get("TELEGRAM_PERSONAL_ID", "696005117")
 
 
 # ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -142,7 +143,7 @@ def send_telegram(message: str):
     try:
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         httpx.post(url, json={
-            "chat_id": TELEGRAM_CHAT_ID,
+            "chat_id": TELEGRAM_PERSONAL_ID,
             "text": message,
             "parse_mode": "HTML",
         }, timeout=10)
