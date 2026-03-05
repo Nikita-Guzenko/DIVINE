@@ -6,6 +6,7 @@ Bot Cron Worker — runs every 15 minutes via GitHub Actions.
 
 import os
 import sys
+import re
 import json
 import httpx
 from datetime import datetime, timezone
@@ -210,8 +211,67 @@ def process_updates():
         elif action == "comment":
             tg_request("answerCallbackQuery", {
                 "callback_query_id": callback_id,
-                "text": "Comments are processed when bot is running locally. Use Hired/Not Qualified buttons.",
+                "text": "Send your comment as a reply to the candidate message.",
             })
+
+            msg = callback.get("message", {})
+            chat_id = msg.get("chat", {}).get("id")
+            message_id = msg.get("message_id")
+            if chat_id and message_id:
+                name_resp = sb.table("candidates").select("first_name, last_name").eq("id", candidate_id).execute()
+                cname = ""
+                if name_resp.data:
+                    cname = f"{name_resp.data[0].get('first_name', '')} {name_resp.data[0].get('last_name', '')}".strip()
+                tg_request("sendMessage", {
+                    "chat_id": chat_id,
+                    "text": f"📝 Reply to this message with your comment for <b>{cname}</b> (ID {candidate_id}):",
+                    "parse_mode": "HTML",
+                    "reply_to_message_id": message_id,
+                    "reply_markup": {"force_reply": True, "selective": True},
+                })
+
+            print(f"[BOT] Comment requested for candidate {candidate_id}")
+            processed += 1
+
+    # Process text messages (comment replies)
+    for update in updates:
+        message = update.get("message")
+        if not message:
+            continue
+        text = message.get("text", "").strip()
+        if not text:
+            continue
+
+        # Check if this is a reply to a comment prompt
+        reply_to = message.get("reply_to_message")
+        if not reply_to:
+            continue
+        reply_text = reply_to.get("text", "")
+        if "Reply to this message with your comment" not in reply_text and "ID " not in reply_text:
+            continue
+
+        # Extract candidate ID from the prompt message
+        id_match = re.search(r"ID (\d+)", reply_text)
+        if not id_match:
+            continue
+        candidate_id = int(id_match.group(1))
+
+        now = datetime.now(timezone.utc).isoformat()
+        sb.table("candidates").update({
+            "feedback_at": now,
+            "sergey_comment": text,
+        }).eq("id", candidate_id).execute()
+
+        chat_id = message["chat"]["id"]
+        tg_request("sendMessage", {
+            "chat_id": chat_id,
+            "text": f"💾 Comment saved for candidate #{candidate_id}:\n<i>{text}</i>",
+            "parse_mode": "HTML",
+        })
+
+        from_user = message.get("from", {}).get("first_name", "Someone")
+        print(f"[BOT] Comment from {from_user} saved for candidate {candidate_id}: {text}")
+        processed += 1
 
     # Confirm all processed updates
     if updates:
