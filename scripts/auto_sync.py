@@ -29,9 +29,7 @@ from cdljobs_scraper import CDLJobsScraper
 
 # ─── Config ──────────────────────────────────────────────────────────────────
 
-SUPABASE_URL = os.environ.get(
-    "SUPABASE_URL", "https://psrsosfjteeovtmszwgu.supabase.co"
-)
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "")
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")

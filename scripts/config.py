@@ -10,7 +10,7 @@ import os
 # =============================================================================
 # Gmail for notifications (will switch to Divine email later)
 EMAIL_ADDRESS = os.environ.get("GMAIL_ADDRESS", "nguzen@gmail.com")
-EMAIL_PASSWORD = os.environ.get("GMAIL_PASSWORD", "jvoxlvfyambswels")  # App password
+EMAIL_PASSWORD = os.environ.get("GMAIL_PASSWORD", "")
 IMAP_SERVER = "imap.gmail.com"
 IMAP_PORT = 993
 SMTP_SERVER = "smtp.gmail.com"
@@ -21,7 +21,7 @@ SMTP_PORT = 587
 # =============================================================================
 CAREERPLUG_URL = "https://app.careerplug.com"
 CAREERPLUG_EMAIL = os.environ.get("CAREERPLUG_EMAIL", "nguzen@gmail.com")
-CAREERPLUG_PASSWORD = os.environ.get("CAREERPLUG_PASSWORD", "VhruYGb8a6ce#Gx")
+CAREERPLUG_PASSWORD = os.environ.get("CAREERPLUG_PASSWORD", "")
 
 # =============================================================================
 # DIVINE ENTERPRISES INFO

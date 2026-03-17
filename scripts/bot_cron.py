@@ -15,22 +15,12 @@ from supabase import create_client
 
 # ─── Config ──────────────────────────────────────────────────────────────────
 
-TELEGRAM_BOT_TOKEN = os.environ.get(
-    "TELEGRAM_BOT_TOKEN", "8003820485:AAF7Oaj2tr1tm0s_uHbzDRuLJhLpvrV1bBA"
-)
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = int(os.environ.get("TELEGRAM_CHAT_ID", "-5036058686"))
 SERGEY_USER_ID = 1496678108
 
-SUPABASE_URL = os.environ.get(
-    "SUPABASE_URL", "https://psrsosfjteeovtmszwgu.supabase.co"
-)
-SUPABASE_KEY = os.environ.get(
-    "SUPABASE_KEY",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9."
-    "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzcnNvc2ZqdGVlb3Z0bXN6d2d1Iiwi"
-    "cm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MTUzMjYwMCwiZXhwIjoyMDg3"
-    "MTA4NjAwfQ.X5YF9ZlzmKtlRRK_P1AxWdZfijKCMijEAAXuK76vlME"
-)
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "")
 
 API = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}"
 sb = create_client(SUPABASE_URL, SUPABASE_KEY)
