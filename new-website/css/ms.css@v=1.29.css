@@ -1,0 +1,34 @@
+.h-mobile .w-social .social-icon__link img {width: 18px;height: 18px;}
+@media (max-width: 767px) {
+    .w-footer-icon-item br {display: block;}
+}
+
+@media (max-width: 575px) {
+    #image-mobile-id-123124215 {
+        margin-top: 0px;
+    }
+
+    .mobile_phone {
+        width: 80%;
+    }
+
+    .p-htc .article-custom001 p, .p-htc .article-custom001 ul,  .p-career .s-driver-training .article-custom001 p, .p-career .s-driver-training .article-custom001 ul {
+        margin: 20px 0 0 0;
+    }
+
+    ._js-section006 .w-title {
+        width: 82%;
+    }
+    .p-goverment p {
+        margin-bottom: 15px;
+    }
+}
+
+.mobile-benu-btn {
+    display: block;
+    width: 43px;
+    height: 43px;
+    background-color: #164cff;
+    border-radius: 50%;
+    padding: 14px 13px 14px;
+}

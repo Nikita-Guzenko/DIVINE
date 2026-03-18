@@ -1,0 +1,156 @@
+$(document).ready(function () {
+    $('#contactform').validate({ // initialize the plugin
+        rules: {
+            first_name: {
+                required: true
+            },
+            last_name: {
+                required: true
+            },
+            email: {
+                email: true
+            },
+            phone: {
+                digits: true
+            },
+            position: {
+                required: true
+            },
+            i_agree: {
+                required: true
+            },
+            filename: {
+                extension: "doc|docx|pdf"
+            },
+        },
+
+        invalidHandler: function(event, validator) {
+            var error_map = validator.errorList;
+
+
+
+            $(error_map).each(function(index, value){
+                $(this.element).val('');
+                $(this.element).attr("placeholder", this.message);
+            });
+
+            if ($('[name=i_agree]').is(':checked')) {
+                $('[name=i_agree]').closest('.input').find('.styled-figure .border').css('border-color', ' #cecece')
+            } else {
+                $('[name=i_agree]').closest('.input').find('.styled-figure .border').css('border-color', 'red')
+                return false;
+            }
+
+        },
+        submitHandler: function(form) {
+            if ($('[name=i_agree]').is(':checked') == false) {
+                return false;
+            }
+            Swal.fire({
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100)
+                },
+            })
+
+
+            $.ajax({
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                url: '/sendmail',
+                data: $(form).serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                success: function (data) {
+                    if($.isEmptyObject(data.error)){
+                        $('input').val('');
+                        $('._js-input-file-name:first-child').html('');
+                    }else{
+                        for (var item in data.error) {
+                            $('input[name$='+item+']').addClass('_error');
+                            $('input[name$='+item+']').attr("placeholder", data.error[item]);
+                        }
+
+                        if (data.error.hasOwnProperty('file')){
+                            $('._js-input-file-name')[0].innerHTML = data.error.file[0];
+                            $('._js-input-file-name')[0].style.color = 'red';
+                        }
+                    }
+                    $('[name=i_agree]').closest('.input').find('.styled-figure .border').css('border-color', ' #cecece')
+                    $('[name=i_agree]').removeAttr('checked')
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+            });
+        }
+    });
+
+    var loc = window.location.hash.replace("#","");
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+        $('.color-dblue p').each(function() {
+            var $this = $(this);
+            if($this.html().replace(/\s|&nbsp;/g, '').length == 0)
+                $this.remove();
+        });
+        $('.color-dblue br').each(function() {
+            var $this = $(this);
+            $this.remove();
+        });
+
+        if (loc != "") {
+            $('.li-mobile-menu').removeClass('_active');
+            $("a[href*="+loc+"]").each(function() {
+                var $this = $(this);
+                $this.closest('li').addClass('_active');
+            });
+        }
+
+    } else {
+        if (loc != "") {
+            var destination = $("#"+loc).offset().top - 135 ;
+            $('html,body').stop().animate({ scrollTop: destination }, 1000);
+            $('.h-bottom li').removeClass('_active');
+            $("a[href*="+loc+"]").each(function() {
+                var $this = $(this);
+                $this.closest('li').addClass('_active');
+            });
+        }
+    }
+
+    $(document).on('click', '.dashed', function () {
+        var str = $(this).closest('a')[0].href;
+        var loc =  str.substring(str.indexOf('#'));
+        var destination = $(loc).offset().top - 135 ;
+        $('html,body').stop().animate({ scrollTop: destination }, 1000);
+        $('.h-bottom li').removeClass('_active');
+        $("a[href*="+loc+"]").each(function() {
+            var $this = $(this);
+            $this.closest('li').addClass('_active');
+        });
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+            $('.close.white._js-b-toggle-mobile-menu').click();
+        }
+    })
+
+        $(document).on('click', '.mobile-menu__link', function () {
+            var str = $(this)[0].href;
+            var loc =  str.substring(str.indexOf('#'));
+            var destination = $(loc).offset().top ;
+            $('html,body').stop().animate({ scrollTop: destination }, 1000);
+            $('.li-mobile-menu').removeClass('_active');
+            $("a[href*="+loc+"]").each(function() {
+                var $this = $(this);
+                $this.closest('li').addClass('_active');
+            });
+            $('.close.white._js-b-toggle-mobile-menu').click();
+        })
+});
