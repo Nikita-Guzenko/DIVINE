@@ -55,7 +55,9 @@ def format_candidate(c: dict) -> str:
         f"<b>License:</b> {license_types}\n"
         f"<b>Endorsements:</b> {endorsements}\n"
         f"<b>Trailer:</b> {trailer}\n"
-        f"<b>Violations:</b> {violations} | <b>Accidents:</b> {accidents} | <b>DUI:</b> {dui}"
+        f"<b>Violations:</b> {violations} | <b>Accidents:</b> {accidents} | <b>DUI:</b> {dui}\n"
+        f"<b>Application status:</b> Sent out\n"
+        f"<b>Ready to work in team:</b> YES"
     )
 
 

@@ -22,6 +22,7 @@ import database as db
 from careerplug_scraper import CareerPlugScraper
 from google_sheets import sync_to_sheet
 from email_sender import send_prescreening_to_new, check_replies
+from quo_calls import cmd_calls
 
 
 def process_candidates(position_filter: str = "CDL"):
@@ -179,7 +180,7 @@ Examples:
 
     parser.add_argument(
         "command",
-        choices=["process", "sync", "stats", "list", "search", "screen", "check-replies"],
+        choices=["process", "sync", "stats", "list", "search", "screen", "check-replies", "calls"],
         help="Command to run"
     )
 
@@ -211,6 +212,24 @@ Examples:
     parser.add_argument(
         "--status",
         help="Filter by status (for list command)"
+    )
+
+    parser.add_argument(
+        "--call-id",
+        help="Call ID for detail view (for calls command)"
+    )
+
+    parser.add_argument(
+        "--days",
+        type=int,
+        default=30,
+        help="Number of days to look back (for calls command)"
+    )
+
+    parser.add_argument(
+        "--with-recordings",
+        action="store_true",
+        help="Download recordings and transcripts (for calls command)"
     )
 
     args = parser.parse_args()
@@ -256,6 +275,13 @@ Examples:
         processed = check_replies()
         if processed > 0:
             print("\n→ Run 'python run.py list --status \"Team OK\"' to see candidates ready for call")
+
+    elif args.command == "calls":
+        cmd_calls(
+            detail_id=args.call_id,
+            days=args.days,
+            sync=args.with_recordings,
+        )
 
 
 if __name__ == "__main__":

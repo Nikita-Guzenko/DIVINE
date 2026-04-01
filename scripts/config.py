@@ -57,7 +57,20 @@ EMAIL_TEMPLATE = os.path.join(TEMPLATES_DIR, "candidate_email.md")
 PRESCREENING_TEMPLATE = os.path.join(TEMPLATES_DIR, "prescreening_email.md")
 
 # =============================================================================
+# QUO (OPENPHONE) API
+# =============================================================================
+QUO_API_KEY = os.environ.get("QUO_API_KEY", "")
+QUO_API_BASE = "https://api.openphone.com/v1"
+QUO_PHONE_NUMBER_ID = "PN49arHHea"  # (916) 249-0761
+
+# =============================================================================
 # AUTOMATION SETTINGS
 # =============================================================================
 CHECK_INTERVAL_MINUTES = 15  # How often to check for new candidates
 HEADLESS_BROWSER = False     # Set True to run browser in background
+
+# =============================================================================
+# PATHS - CALLS
+# =============================================================================
+CALLS_DIR = os.path.join(DATA_DIR, "calls")
+CALLS_RECORDINGS_DIR = os.path.join(CALLS_DIR, "recordings")

@@ -13,6 +13,9 @@ __pycache__/
 .env
 google_credentials.json
 
+# Next.js build
+.next/
+
 # OS
 .DS_Store
 
